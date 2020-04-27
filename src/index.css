@@ -23,13 +23,32 @@
 }
 
 @font-face {
-  font-family: 'uomouploaded_file';
+  font-family: 'uomo regular';
   src: url('uomo-webfont.woff2') format('woff2'),
        url('uomo-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 
 }
+@font-face {
+  font-family: 'uomo wide';
+  src: url('uomo_wide-webfont.woff2') format('woff2'),
+       url('uomo_wide-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'uomo light';
+  src: url('uomo_light-webfont.woff2') format('woff2'),
+       url('uomo_light-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
 
 *, *:before, *:after {
   padding: 0;
@@ -43,7 +62,7 @@ html, body {
 
 body {
   font-size: 16px;
-  font-family: 'uomouploaded_file','Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+  font-family: 'uomo regular','Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
