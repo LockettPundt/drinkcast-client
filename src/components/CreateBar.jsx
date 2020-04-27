@@ -4,49 +4,57 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { post, API_URL } from '../utils/apiConn';
 import StateContext from '../context';
-
+import wood from '../images/wood.jpg';
 import Button from './Button';
 
 const FormDiv = styled.div`
   display: flex;
-  background-color: var(--yellow);
-  height: 100vh;
-`;
-
-const Form = styled.form`
-  border: 2px solid var(--tertiary);
-  display: flex;
   flex-direction: column;
-  background-color: var(--primary);
-  width: 230px;
-  height: 350px;
   align-items: center;
   justify-content: center;
-  margin: auto;
-  border-radius: 3px;
-  box-shadow: 10px 5px 3px grey;
+  background: url(${wood}) no-repeat top left fixed;
+  background-size: cover;
+  height: 100vh;
   
   div {
     display: inherit;
-    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    height: 250px;
   }
+  
+`;
 
+const Form = styled.form`
+  display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  
   h1 {
     display: inherit;
     flex-direction: inherit;
-    align-self: flex-start;
-    margin: 18px auto 38px auto;
-    font-size: 40px;
+    align-self: center;
+    font-size: 3rem;
+    margin: 0 1rem;
   }
 
   input {
     border: none;
     font-family: inherit;
     padding: 10px;
-    border-radius: 7px;
-    margin: 7px auto;
+    border-radius: 2px;
+    margin: 1rem;
     text-align: center;
-    box-shadow: 5px 3px 3px grey;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.49);
+    z-index: 5;
+  }
+  
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
   }
 `;
 
@@ -91,34 +99,36 @@ const IndexPage = () => {
   return (
     <FormDiv>
       {redirect && (<Redirect to="./bar" />)}
-      <Form onSubmit={(e) => submitBarName(e)}>
-        <h1>DRINKCAST</h1>
+      <div>
+        <Form onSubmit={(e) => submitBarName(e)}>
+          <h1>DRINKCAST</h1>
+          <input
+            name="barName"
+            type="text"
+            value={barName}
+            placeholder="Enter a New Bar Name"
+            onChange={(e) => setBarName(e.target.value)}
+            isRequired
+          />
+          <input
+            name="userName"
+            type="text"
+            value={userName}
+            placeholder="Enter your name"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Enter a Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <br />
+          <Button url="" type="submit">Create New Bar</Button>
+        </Form>
         <div>{nameCheck}</div>
-        <input
-          name="barName"
-          type="text"
-          value={barName}
-          placeholder="Enter a New Bar Name"
-          onChange={(e) => setBarName(e.target.value)}
-          isRequired
-        />
-        <input
-          name="userName"
-          type="text"
-          value={userName}
-          placeholder="Enter your name"
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          placeholder="Enter a Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <Button url="" type="submit">Create New Bar</Button>
-      </Form>
+      </div>
     </FormDiv>
   );
 };

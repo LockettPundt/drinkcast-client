@@ -3,38 +3,43 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { post, API_URL } from '../utils/apiConn';
 import StateContext from '../context';
-
+import wood from '../images/wood.jpg';
 import Button from './Button';
 
 const FormDiv = styled.div`
   display: flex;
-  background-color: var(--yellow);
-  height: 100vh;
-`;
-
-const Form = styled.form`
-  border: 2px solid var(--tertiary);
-  display: flex;
   flex-direction: column;
-  background-color: var(--primary);
-  width: 230px;
-  height: 350px;
+  height: 100vh;
   align-items: center;
   justify-content: center;
-  margin: auto;
-  border-radius: 3px;
+  background: url(${wood}) no-repeat top left fixed;
+  background-size: cover;
   
   div {
     display: inherit;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    height: 250px;
     text-align: center;
-    
   }
+ 
+`;
+
+const Form = styled.form`
+  display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
 
   h1 {
+    font-size: 3rem;
     display: inherit;
     flex-direction: inherit;
-    align-self: flex-start;
-    margin: 18px auto 38px auto;
+    align-self: center;
+    margin: 0 1rem;
   }
 
   input {
@@ -42,8 +47,14 @@ const Form = styled.form`
     font-family: inherit;
     padding: 10px;
     border-radius: 2px;
-    margin: 7px auto;
+    margin: 1rem;
     text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.49);
+    z-index: 5;
+  }
+  
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
   }
 `;
 
@@ -54,7 +65,7 @@ const IndexPage = () => {
   const [value, dispatch] = useContext(StateContext);
   const [redirect, setRedirect] = useState(false);
   const [alert, setAlert] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState('');
   // console.log(value);
   const submitJoinBar = async (e) => {
     e.preventDefault();
@@ -79,7 +90,7 @@ const IndexPage = () => {
       setRedirect(true);
     }
 
-
+    setErrorMessage(opentokInfo.error);
     setAlert(true);
     setJoinBar('');
     setPassword('');
@@ -89,33 +100,36 @@ const IndexPage = () => {
   return (
     <FormDiv>
       {redirect && (<Redirect to="./bar" />)}
-      <Form onSubmit={(e) => submitJoinBar(e)}>
-        <h1>DRINKCAST</h1>
-        {alert ? <div>Incorrect bar name or password.</div> : null}
-        <input
-          name="joinBar"
-          type="text"
-          value={joinBar}
-          placeholder="Enter a Bar to Join"
-          onChange={(e) => setJoinBar(e.target.value)}
-        />
-        <input
-          name="userName"
-          type="text"
-          value={userName}
-          placeholder="Enter your name"
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter a password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button url="" type="submit">Join a Bar</Button>
-      </Form>
+      <div>
 
+
+        <Form onSubmit={(e) => submitJoinBar(e)}>
+          <h1>DRINKCAST</h1>
+          <input
+            name="joinBar"
+            type="text"
+            value={joinBar}
+            placeholder="Enter a Bar to Join"
+            onChange={(e) => setJoinBar(e.target.value)}
+          />
+          <input
+            name="userName"
+            type="text"
+            value={userName}
+            placeholder="Enter your name"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter a password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button url="" type="submit">Join a Bar</Button>
+        </Form>
+        <div className="error">{errorMessage}</div>
+      </div>
     </FormDiv>
   );
 };
