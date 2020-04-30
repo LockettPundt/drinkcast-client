@@ -76,7 +76,6 @@ const GameStyled = styled.div`
 const Bar = () => {
   const [value] = useContext(StateContext);
   const sessionRef = useRef();
-
   const [gameStart, setGameStart] = useState(false);
   const [gameSelected, setGameSelected] = useState(''); // "neverhaveiever" or "wouldyourather"
   const [roundText, setRoundText] = useState('');
@@ -116,6 +115,8 @@ const Bar = () => {
   const signalSetRoundText = (signal) => {
     setRoundText(signal.data);
   };
+
+
 
   const sessionEvents = {
     'signal:startGame': (event) => setGameStart(event.data),
