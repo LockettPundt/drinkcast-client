@@ -30,6 +30,14 @@ const Subscriber = () => {
     setError(`Failed to connect: ${err.message}`);
   };
 
+  const getUserName = () => {
+    const item = localStorage.getItem('userName');
+    const name = JSON.parse(item);
+    return name.localValue;
+  };
+
+  const displayName = getUserName();
+
   return (
     <SubscriberStyled>
       {error ? <div>{error}</div> : null}
@@ -37,8 +45,10 @@ const Subscriber = () => {
         style={{
           width: '100',
           height: '100',
+
         }}
         properties={{
+          name: displayName,
           subscribeToAudio: audio,
           subscribeToVideo: video,
         }}
